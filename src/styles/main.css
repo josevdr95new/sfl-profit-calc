@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{font-family:'Inter',sans-serif;box-sizing:border-box}
+body{background:#0a0a0a;color:#e4e4e7;margin:0}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.card{background:#161616;border:1px solid #252525;border-radius:14px;padding:16px}
+.good{color:#4ade80}.bad{color:#f87171}.warn{color:#fbbf24}.info{color:#60a5fa}
+.glow-g{border-color:#166534;box-shadow:0 0 14px rgba(74,222,128,.08)}
+.glow-r{border-color:#991b1b;box-shadow:0 0 14px rgba(248,113,113,.06)}
+.glow-gold{border-color:#854d0e;box-shadow:0 0 18px rgba(234,179,8,.12)}
+#ld{transition:opacity .4s}.fade{opacity:0;pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sp{width:32px;height:32px;border:3px solid #252525;border-top-color:#eab308;border-radius:50%;animation:spin .7s linear infinite}
+.tag-mine{background:#14532d;color:#4ade80;border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700}
+.tag-buy{background:#3b0764;color:#c084fc;border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700}
+.lang-btn{background:#27272a;border:1px solid #3f3f46;border-radius:6px;padding:2px 6px;font-size:10px;font-weight:700;cursor:pointer;transition:all .15s}
+.lang-btn.active{background:#ca8a04;border-color:#ca8a04;color:#000}
+.lang-btn:hover:not(.active){border-color:#71717a}
