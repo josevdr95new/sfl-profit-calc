@@ -1,6 +1,9 @@
 export const I18N = {
     loading: { es: 'Cargando...', en: 'Loading...' },
     errorRetry: { es: 'Reintentar', en: 'Retry' },
+    loadPrices: { es: 'Precios P2P', en: 'P2P Prices' },
+    loadExchange: { es: 'Tipo de cambio', en: 'Exchange rate' },
+    loadFarm: { es: 'Datos de la granja', en: 'Farm data' },
     subtitle: { es: '¿Minar, comprar o vender?', en: 'Mine, buy or sell?' },
     sflUsd: { es: 'SFL/USD', en: 'SFL/USD' },
     commissionLabel: { es: 'Comisión de venta (%)', en: 'Sale commission (%)' },

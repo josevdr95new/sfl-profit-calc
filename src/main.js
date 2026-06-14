@@ -18,19 +18,68 @@ document.getElementById('farmBtn').addEventListener('click', goFarm);
 
 document.getElementById('comm').addEventListener('input', renderAll);
 
+function buildSteps() {
+    const steps = ['loadPrices', 'loadExchange', 'loadFarm'];
+    document.getElementById('ld-steps').innerHTML = steps.map((key, i) =>
+        `<div class="ld-step" data-step="${i}"><span class="ld-ic">○</span><span>${t(key)}</span></div>`
+    ).join('');
+}
+
+function setStep(step, status) {
+    const el = document.querySelector(`.ld-step[data-step="${step}"]`);
+    if (!el) return;
+    el.className = 'ld-step ld-' + status;
+    const ic = el.querySelector('.ld-ic');
+    if (status === 'active') ic.textContent = '◐';
+    else if (status === 'done') ic.textContent = '✓';
+    else if (status === 'error') ic.textContent = '✗';
+    else ic.textContent = '○';
+}
+
+function setLoadText(text) {
+    const el = document.getElementById('ld-text');
+    if (el) el.textContent = text;
+}
+
+function hideSpinner() {
+    const el = document.getElementById('ld-spinner');
+    if (el) el.style.display = 'none';
+}
+
 async function init() {
     try {
+        buildSteps();
+
+        setStep(0, 'active');
+        setLoadText(t('loadPrices') + '...');
         D.p2p = (await gj('https://sfl.world/api/v1/prices')).data?.p2p || {};
+        setStep(0, 'done');
+
+        setStep(1, 'active');
+        setLoadText(t('loadExchange') + '...');
         D.ex = await gj('https://sfl.world/api/v1.1/exchange');
+        setStep(1, 'done');
+
+        setStep(2, 'active');
+        setLoadText(t('loadFarm') + '...');
         D.bst = await gj('https://sfl.world/api/v1/land/' + D.fid);
+        setStep(2, 'done');
+
         updateStaticText();
         renderAll();
+        hideSpinner();
+        setLoadText('✓');
         const o = document.getElementById('ld');
         o.classList.add('fade');
         setTimeout(() => o.style.display = 'none', 500);
     } catch (e) {
-        document.getElementById('ld').innerHTML = `<div class="text-center"><p class="text-red-400 text-sm">Error: ${e}</p><button id="retryBtn" class="mt-3 px-3 py-1 bg-yellow-600 text-black rounded text-xs font-bold">${t('errorRetry')}</button></div>`;
-        document.getElementById('retryBtn').addEventListener('click', init);
+        const active = document.querySelector('.ld-step.ld-active');
+        if (active) setStep(parseInt(active.dataset.step), 'error');
+        hideSpinner();
+        setLoadText('Error: ' + e);
+        document.getElementById('ld-text').className = 'text-red-400 text-sm mb-4';
+        document.getElementById('ld-steps').innerHTML += `<div class="mt-3"><button id="retryBtn" class="bg-yellow-600 hover:bg-yellow-500 text-black rounded px-3 py-1 text-xs font-bold">${t('errorRetry')}</button></div>`;
+        document.getElementById('retryBtn').addEventListener('click', () => location.reload());
     }
 }
 

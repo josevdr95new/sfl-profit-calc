@@ -10,7 +10,12 @@
 <body>
 
 <div id="ld" class="fixed inset-0 bg-[#0a0a0a] z-50 flex items-center justify-center">
-    <div class="text-center"><div class="sp mx-auto mb-3"></div><p class="text-yellow-500 text-sm" data-t="loading">Cargando...</p></div>
+    <div class="text-center w-64">
+        <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center text-2xl mx-auto mb-4">🌻</div>
+        <div id="ld-spinner" class="sp mx-auto mb-3"></div>
+        <p class="text-yellow-500 text-sm mb-4" id="ld-text" data-t="loading">Cargando...</p>
+        <div id="ld-steps" class="space-y-1.5 text-left text-[11px]"></div>
+    </div>
 </div>
 
 <div class="max-w-2xl mx-auto px-4 py-6">
@@ -70,7 +75,7 @@
 
     <!-- Créditos -->
     <div class="text-center py-3 border-t border-zinc-800/40">
-        <p class="text-[11px] text-zinc-600 font-medium">josevdr95 · v1.1 · 2026</p>
+        <p class="text-[11px] text-zinc-600 font-medium">josevdr95 · v1.2 · 2026</p>
     </div>
 </div>
 
