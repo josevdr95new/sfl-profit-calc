@@ -5,9 +5,40 @@ import { renderAll } from './ui/dom.js';
 
 onLangChange(renderAll);
 
+function showLoad(text) {
+    const ld = document.getElementById('ld');
+    const spinner = document.getElementById('ld-spinner');
+    const steps = document.getElementById('ld-steps');
+    const txt = document.getElementById('ld-text');
+    if (spinner) spinner.style.display = '';
+    if (steps) steps.innerHTML = '';
+    if (txt) { txt.textContent = text; txt.className = 'text-yellow-500 text-sm mb-4'; }
+    ld.classList.remove('fade');
+    ld.style.display = '';
+}
+
+function hideLoad() {
+    const ld = document.getElementById('ld');
+    ld.classList.add('fade');
+    setTimeout(() => ld.style.display = 'none', 400);
+}
+
 async function goFarm() {
     const v = document.getElementById('fi').value.trim();
-    if (v) { D.fid = v; D.bst = await gj('https://sfl.world/api/v1/land/' + v); renderAll(); }
+    if (!v) return;
+    D.fid = v;
+    showLoad(t('loadFarm') + '...');
+    try {
+        D.bst = await gj('https://sfl.world/api/v1/land/' + v);
+        renderAll();
+        hideLoad();
+    } catch (e) {
+        hideSpinner();
+        setLoadText('Error: ' + e);
+        document.getElementById('ld-text').className = 'text-red-400 text-sm mb-4';
+        document.getElementById('ld-steps').innerHTML = `<div class="mt-3"><button id="retryBtn" class="bg-yellow-600 hover:bg-yellow-500 text-black rounded px-3 py-1 text-xs font-bold">${t('errorRetry')}</button></div>`;
+        document.getElementById('retryBtn').addEventListener('click', goFarm);
+    }
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
