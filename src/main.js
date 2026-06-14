@@ -34,13 +34,4 @@ async function init() {
     }
 }
 
-setInterval(async () => {
-    try {
-        D.p2p = (await gj('https://sfl.world/api/v1/prices')).data?.p2p || {};
-        D.bst = await gj('https://sfl.world/api/v1/land/' + D.fid);
-        D.ex = await gj('https://sfl.world/api/v1.1/exchange');
-        renderAll();
-    } catch (e) { }
-}, 300000);
-
 init();

@@ -17,4 +17,8 @@ export const PICKS = {
 
 export const PM = { wood: 'Wood', stone: 'Stone', iron: 'Iron', gold: 'Gold', crimstone: 'Crimstone' };
 
-export const CORS_PROXIES = ['https://corsproxy.io/?', 'https://api.allorigins.win/raw?url='];
+export const CORS_PROXIES = [
+    'https://corsproxy.io/?',
+    'https://api.allorigins.win/raw?url=',
+    'https://api.cors.lol/?url='
+];
